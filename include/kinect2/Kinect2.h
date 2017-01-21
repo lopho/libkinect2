@@ -13,13 +13,13 @@
 namespace kinect2
 {
 
-namespace private_ns
-{
-    class Kinect2Impl;
-}
-
 typedef std::shared_ptr<Frame> tFramePtr;
 typedef std::map<Frame::tFrameType, tFramePtr> tFrameMap;
+
+namespace private_ns
+{
+    class Kinect2ImplHolder;
+}
 
 //#############################################################################
 
@@ -175,12 +175,49 @@ public:
     bool hasNewFrameRegistered() const;
     const tFramePtr& getFrameRegistered() const;
     bool hasNewFrameIrUndistorted() const;
-    const tFramePtr& getFrameIrUndistorted();
+    const tFramePtr& getFrameIrUndistorted() const;
     bool hasNewFrameBigDepth() const;
     const tFramePtr& getFrameBigDepth() const;
 
 private:
-    private_ns::Kinect2Impl* pImpl;
+    void fetchFrames();
+
+    Kinect2::tReturnCode setup();
+    Kinect2::tReturnCode reopen();
+    void installListeners();
+    void cleanListeners();
+    void waitForListeners();
+    void copyFramesSync();
+    void copyFramesRgb();
+    void copyFramesDepthIr();
+    void applyRegistration();
+    void applyUndistortion();
+    void applyUndistortionOrRegistration();
+    void applyIrUndistortion();
+
+    Kinect2::tPipelineType ePipelineType;
+    int nDeviceId;
+    std::string strSerial;
+    bool bRgb;
+    bool bDepth;
+    bool bIr;
+    bool bUndistort;
+    bool bRegister;
+    bool bIrUndistort;
+    bool bBigDepth;
+    bool bSync;
+    bool bOpen;
+    bool bRunning;
+
+    bool bNewRgb;
+    bool bNewDepth;
+    bool bNewIr;
+    bool bNewUndistorted;
+    bool bNewRegistered;
+    bool bNewIrUndistorted;
+    bool bNewBigDepth;
+
+    private_ns::Kinect2ImplHolder* p;
 };
 
 //#############################################################################
