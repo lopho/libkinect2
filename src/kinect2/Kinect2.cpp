@@ -266,7 +266,7 @@ Kinect2::~Kinect2()
         }
         close();
     }
-    p->pRegistration.reset();
+    //p->pRegistration.reset();
     delete p;
 }
 

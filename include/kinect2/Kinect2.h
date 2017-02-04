@@ -8,10 +8,12 @@
 
 //# TYPEDEFS / CONSTANTS ######################################################
 
-//# DECLARATION ###############################################################
-
 namespace kinect2
 {
+
+static const int VERSION_MAJOR = 0;
+static const int VERSION_MINOR = 1;
+static const int VERSION_PATCH = 0;
 
 typedef std::shared_ptr<Frame> tFramePtr;
 typedef std::map<Frame::tFrameType, tFramePtr> tFrameMap;
@@ -20,6 +22,8 @@ namespace private_ns
 {
     class Kinect2ImplHolder;
 }
+
+//# DECLARATION ###############################################################
 
 //#############################################################################
 
